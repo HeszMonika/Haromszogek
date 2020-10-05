@@ -12,9 +12,9 @@ namespace Haromszogek
 {
     public partial class frmFo : Form
     {
-        private int aOldal;
-        private int bOldal;
-        private int cOldal;
+        private double aOldal;
+        private double bOldal;
+        private double cOldal;
 
         public frmFo()
         {
@@ -35,41 +35,49 @@ namespace Haromszogek
 
         private void btnSzamol_Click(object sender, EventArgs e)
         {
-            aOldal = Convert.ToInt32(tbAoldal.Text);
-            bOldal = Convert.ToInt32(tbBoldal.Text);
-            cOldal = Convert.ToInt32(tbColdal.Text);
-
-            //StringBuilder szoveg = new StringBuilder();
-            //szoveg.Append("a: ");
-            //szoveg.Append(aOldal.ToString());
-            //szoveg.Append(" - b: ");
-            //szoveg.Append(bOldal.ToString());
-            //szoveg.Append(" - c: ");
-            //szoveg.Append(cOldal.ToString());
-
-            if (aOldal == 0 || bOldal == 0 || cOldal == 0)
+            try
             {
-                MessageBox.Show("Nem lehet a háromszög oldala 0.", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                var h = new Haromszog(aOldal, bOldal, cOldal);
-                //MessageBox.Show(szoveg.ToString(), "Ez most", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //if (h.Szerkesztheto)
-                //{
-                //    MessageBox.Show("Kerület: " + h.Kerulet + " - Terület: " + h.Terulet);
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Nem szerkeszthető belőle háromszög.");
-                //}
+                aOldal = Convert.ToDouble(tbAoldal.Text);
+                bOldal = Convert.ToDouble(tbBoldal.Text);
+                cOldal = Convert.ToDouble(tbColdal.Text);
 
-                List<string> adatok = h.AdatokSzoveg();
+                //StringBuilder szoveg = new StringBuilder();
+                //szoveg.Append("a: ");
+                //szoveg.Append(aOldal.ToString());
+                //szoveg.Append(" - b: ");
+                //szoveg.Append(bOldal.ToString());
+                //szoveg.Append(" - c: ");
+                //szoveg.Append(cOldal.ToString());
 
-                foreach (var a in adatok)
+                if (aOldal == 0 || bOldal == 0 || cOldal == 0)
                 {
-                    lbHaromszogLista.Items.Add(a);
+                    MessageBox.Show("Nem lehet a háromszög oldala 0.", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else
+                {
+                    var h = new Haromszog(aOldal, bOldal, cOldal);
+                    //MessageBox.Show(szoveg.ToString(), "Ez most", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //if (h.Szerkesztheto)
+                    //{
+                    //    MessageBox.Show("Kerület: " + h.Kerulet + " - Terület: " + h.Terulet);
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Nem szerkeszthető belőle háromszög.");
+                    //}
+
+                    List<string> adatok = h.AdatokSzoveg();
+
+                    foreach (var a in adatok)
+                    {
+                        lbHaromszogLista.Items.Add(a);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Számot adj meg!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbAoldal.Focus();
             }
         }
 
